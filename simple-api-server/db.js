@@ -1,0 +1,11 @@
+import mysql from 'mysql2/promise';
+
+export const db = await mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '9726',
+  port: 3306,
+  database: 'asdf', // 실제 DB명으로 바꿔
+  waitForConnections: true,
+  connectionLimit: 10,
+});

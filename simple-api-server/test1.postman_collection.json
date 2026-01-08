@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "287d7370-ce07-46c6-a322-ed3c4c9dc2bd",
+		"name": "test1",
+		"description": "이 콜렉션은 테스트다",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "51158766",
+		"_collection_link": "https://aik11087-662897.postman.co/workspace/My-API-Test~76713b87-2cd5-4e79-9dd2-3bd7e47ed1e5/collection/51158766-287d7370-ce07-46c6-a322-ed3c4c9dc2bd?action=share&source=collection_link&creator=51158766"
+	},
+	"item": [
+		{
+			"name": "유저정보",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/users/5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/users",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api제이슨가져오기",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{JSON_HOLDER}}/posts/1",
+					"host": [
+						"{{JSON_HOLDER}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"pm.test(\"응답 데이터가 iterationData와 완전히 일치한다\", function () {\r",
+					"\r",
+					"  // 1️⃣ 서버 응답 Body를 JSON 객체로 파싱\r",
+					"  // GET /posts/1 이므로 배열이 아니라 객체임\r",
+					"  const responseData = pm.response.json();\r",
+					"\r",
+					"  // 2️⃣ Collection Runner에 업로드한 JSON 파일에서\r",
+					"  // 현재 iteration의 값들을 가져옴\r",
+					"  //\r",
+					"  // iterationData는 \"한 row\" 기준이라\r",
+					"  // 배열이 아닌 객체 형태로 접근함\r",
+					"  const expectedData = {\r",
+					"    userId: pm.iterationData.get(\"userId\"),\r",
+					"    id: pm.iterationData.get(\"id\"),\r",
+					"    title: pm.iterationData.get(\"title\"),\r",
+					"    body: pm.iterationData.get(\"body\")\r",
+					"  };\r",
+					"\r",
+					"  // 3️⃣ 응답 데이터와 iterationData를 깊은 비교(eql)\r",
+					"  // 값 + 타입까지 전부 동일해야 통과\r",
+					"  pm.expect(responseData).to.eql(expectedData);\r",
+					"});"
+				]
+			}
+		}
+	]
+}
