@@ -12,5 +12,5 @@ print(response)          # <Response [200]>
 # 상태코드만 보고 싶을 때
 print(response.status_code)  # 200
 
-# JSON 응답 내용 확인
+# JSON 응답 내용  확인
 print(response.json())
